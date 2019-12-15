@@ -1,4 +1,4 @@
-// Trawlent 2nd phase: syncing and downloading
+// Trawlent Initial phase: introducing actors
 
 module TrawlNet {
   exception DownloadError {
