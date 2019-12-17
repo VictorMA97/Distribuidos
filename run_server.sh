@@ -22,7 +22,3 @@ $PYTHON orchestrator.py --Ice.Config=$ORCHESTRATOR_CONFIG "$(cat $PRX)"
 echo "Shoutting down..."
 kill -KILL $PID
 rm $PRX
-
-
-
-

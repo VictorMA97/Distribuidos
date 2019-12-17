@@ -19,7 +19,6 @@ class Client(Ice.Application):
  
     def run(self, argv):
         ''' Run '''
-        
         proxy = self.communicator().stringToProxy(argv[1])
         orchestrator = TrawlNet.OrchestratorPrx.checkedCast(proxy)
 
