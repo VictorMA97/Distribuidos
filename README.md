@@ -1,24 +1,13 @@
-# Laboratorio-sistemas-distribuidos
-Laboratorio sistemas distribuidos Escuela Superior de Informática.https://github.com/rosasacedon/SacedonMartin
-Rosa María Sacedón Ortega 
-Victor Martin Alonso 
+# Nombre de la APP 
 
+## Miembros que conforman el grupo:
+* Tu nombre
+* Tu nombre 2
 
-Pasos para la ejecución:
+## Enlace del repositorio
 
-1- En una terminal ejecutar lo siguiente:
+[Repositorio aquí](https://www.google.com/)
 
-    ./run_server.sh 
+## Manual de Usuario
 
-2- En otra terminal ejecutamos:
-
-    ./run_server.sh 
-    
-3- Copiar el identificador del primer orchestrator y ejecutar lo siguiente: 
- 
-    ./run_client.sh "<id_orchestrator>" "<url_youtube>"
-
-4- Ejecutar el siguiente comando para obtener los datos de descarga de un orchestator:
-
-    ./cliente.py "<id_orchestrator>"
-
+### TODO my friend
