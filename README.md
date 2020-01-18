@@ -76,15 +76,6 @@ Además, el cliente también tendrá la opción de pedir la transferencia de un 
 
 Los orchestrators se anunciarán al resto de orchestrators en su creación, que se anunciarán a su vez al nuevo orchestrator para actualizar las listas de orchestrators existentes de cada objeto. Además, un nuevo orchestrator ha de ser consciente de los ficheros de audio que ya han sido descargados en el sistema.
 
-Se puede observar el diagrama de secuencia de la fase 2 en la Figura 1.
-
-
-
-
-
-
-
-
 ##### Downloader
 
 El downloader es el componente encargado de la descarga de ficheros, y son creados bajo
@@ -132,25 +123,25 @@ funcionamiento en esta fase consiste en:
 	* Está siempre a la espera de recibir nuevas peticiones por parte del cliente.
 	* Recibe peticiones de descarga que son asignadas a downloaders, después de haber solicitado
 	su creación, mediante la función pertinente.
-		* string downloadTask(string url)
+		* *string downloadTask(string url)*
 		creará una nueva tarea de descarga que enviará a un downloader si el fichero no existe
 		ya en el sistema.
 	* Recibe peticiones de transferencia que son asignadas a transfers, después de haber solicitado
 	su creación, mediante la función pertinente.
-		* Transfer* getFile(string name)
+		* *Transfer* getFile(string name)*
 		creará una nueva tarea de transferencia que enviará a un transfer si el fichero existe en el
 		sistema.
 	* Mantiene listas actualizadas de los ficheros ya descargados en el sistema controlando los
 	eventos del canal de actualizaciones UpdateEvents.
-		* FileList getFileList();
+		* *FileList getFileList();*
 		proporcionará la lista de ficheros disponibles (ya descargados e indexados) de todos los
  		downloaders del sistema.
 	* Cuando se arranca un nuevo orchestrator saluda al resto de orchestrators, que se anuncian
 	al nuevo objeto.
-		* void hello(Orchestrator* me);
+		* *void hello(Orchestrator* me);*
 		informará a los orchestrators que ya existen en el sistema de que es un nuevo
 		orchestrator. Nombre del topic: OrchestratorSync
-		* void announce(Orchestrator* other);
+		* *void announce(Orchestrator* other);*
 		anunciará cada orchestrator al nuevo orchestrator en el sistema.
 
 ##### Cliente
