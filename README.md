@@ -64,9 +64,9 @@ El sistema está formado por cinco tipos de componentes: downloaders, encargados
 	  FASE 2: Descarga y sincronización de componentes
 	  FASE 3: El sistema final
 
--FASE 3: El sistema final-
+###FASE 3: El sistema final
 
--PARTE 1: Implementación-
+####PARTE 1: Implementación
 
 En la tercera fase el sistema se compondrá de un  cliente, tres  orchestrators,  una factoría de downloaders y una factoría de transfers. El cliente tendrá que mandar un URL en forma de string a uno de los orchestrators que, a su vez, redirigirá la petición a un downloader creado a tal efecto siempre que el fichero de audio no haya sido descargado previamente en el sistema. El downloader descargará el archivo y notificará que se ha descargado correctamente en un canal de eventos para que todos los orchestrators sepan que el fichero existe, mandando la información de ese fichero. Al terminar se destruirá.
 
@@ -84,7 +84,7 @@ Se puede observar el diagrama de secuencia de la fase 2 en la Figura 1.
 
 
 
-Downloader
+#####Downloader
 
 El downloader es el componente encargado de la descarga de ficheros, y son creados bajo
 demanda mediante una factoría de objetos. En esta fase su funcionamiento consiste en:
@@ -102,7 +102,7 @@ demanda mediante una factoría de objetos. En esta fase su funcionamiento consis
 		 void destroy()
 		eliminará al downloader del adaptador y terminará su ejecución.
 
-Transfer
+#####Transfer
 
 El *transfer* es el componente encargado de la transferencia de ficheros, y son creados bajo
 demanda mediante una factoría de objetos. En esta fase su funcionamiento consiste en:
@@ -121,7 +121,7 @@ demanda mediante una factoría de objetos. En esta fase su funcionamiento consis
 		 void destroy()
 		eliminará al transfer del adaptador y terminará su ejecución.
 
-Orchestrator
+#####Orchestrator
 
 El *orchestrator* es el componente del sistema que se encarga de la gestión de los downloaders
 haciendo de intermediario entre éstos y el cliente. Pueden existir uno o varios y su
@@ -151,7 +151,7 @@ funcionamiento en esta fase consiste en:
 		 void announce(Orchestrator* other);
 		anunciará cada orchestrator al nuevo orchestrator en el sistema.
 
-Cliente
+#####Cliente
 
 El cliente es el componente del sistema que se conecta a cualquiera de los orchestrators para
 solicitar información o la descarga de ficheros. En esta fase solicitará descargas, transferencias o
@@ -159,14 +159,14 @@ la lista de ficheros a cualquiera de los orchestrators: recibe una URL como argu
 descargar, el nombre de un fichero para una transferencia y si no recibe nada lista los ficheros que
 hay en el sistema.
 
-Ejecución
+#####Ejecución
 
 Deberán lanzarse el registro, la factoría de downloaders, la factoría de transfers y tres orchestrators.
 Se comprobará que un cliente puede solicitar descargas, recibir archivos y listar los ficheros del
 sistema. Deberán reflejarse los cambios en el lado del servidor: actualización de listas de ficheros,
 notificación de nuevos ficheros, notificación de nuevos orchestrators, etc.
 
-PARTE 2: Despliegue con IcegridGUI
+####PARTE 2: Despliegue con IcegridGUI
 
 La imaplementación será modificada para poder desplegarse con IcegridGUI como una aplicación
 llamada YoutubeDownloadsApp. El estado final de la configuración de la aplicación se muestra en
@@ -180,13 +180,13 @@ la Figura 2. Consiste en:
 		▸ Los proxies indirectos de estas factorías serán conocidos por los orchestrators.
 
 
-Cliente
+#####Cliente
 
 Solicitará descargas, transferencias o la lista de ficheros a los orchestrators por medio del ID
 orchestrator: recibe una URL como argumento para descargar, el nombre de un fichero para
 una transferencia y si no recibe nada lista los ficheros que hay en el sistema.
 
-Evaluación
+#####Evaluación
 
 Se harán las mismas comprobaciones que se indicaron en la PARTE 1. Además, el sistema debería
 ser completamente funcional en un despliegue en dos hosts: nodos registry-node y
