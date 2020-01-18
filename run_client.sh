@@ -1,15 +1,8 @@
 #!/bin/sh
 #
 
-echo "Downloading audio..."
-./client.py --download <url> \
---Ice.Config=client.config
+PYTHON=python3
 
-echo ""
-echo "List request..."
-./client.py --Ice.Config=client.config
+CLIENT_CONFIG=server.config
 
-echo ""
-echo "Init transfer..."
-./client.py --transfer <file_name> \
---Ice.Config=client.config
+$PYTHON client.py --Ice.Config=$CLIENT_CONFIG "$1" "$2"

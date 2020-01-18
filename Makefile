@@ -3,7 +3,6 @@
 
 all:
 
-
 clean:
 	$(RM) -r /tmp/db
 	$(RM) -r /tmp/YoutubeDownloaderApp
@@ -35,9 +34,10 @@ run-downloads-node: /tmp/db/downloads-node/servers
 	icegridnode --Ice.Config=downloads-node.config
 
 app-workspace: /tmp/YoutubeDownloaderApp
+	mkdir /tmp/YoutubeDownloaderApp/downloads
 	cp trawlnet.ice orchestrator.py downloader_factory.py \
-	transfer_factory.py utils.py /tmp/YoutubeDownloaderApp
+	transfer_factory.py /tmp/YoutubeDownloaderApp
 	icepatch2calc /tmp/YoutubeDownloaderApp
 
-/tmp/%:
+/tmp/%: 
 	mkdir -p $@
