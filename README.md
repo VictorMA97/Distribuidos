@@ -50,5 +50,33 @@ El objetivo principal del proyecto es diseñar un sistema cliente-servidor que p
 de ficheros a partir de URIs. El ejemplo típico será la descarga de clips de audio de YouTube. La
 implementación de este proyecto permitirá al alumno trabajar, mediante ZeroC Ice, los siguientes
 aspectos:
+	
+	  Comunicación asíncrona
+	  Manejo de canales de eventos
+	  Despliegue de servidores de forma dinámica
+	  Gestión de un grid
+
+Arquitectura del proyecto
+
+El sistema está formado por cinco tipos de componentes: downloaders, encargados de la descargade ficheros;  orchestrators, para la gestión de los  downloaders;  transfers, empleados para latransferencia de archivos; clientes, que solicitarán ficheros; y canales de eventos para mantener unestado coherente entre componentes. Con el objetivo de facilitar el desarrollo de la práctica, laarquitectura descrita se irá desarrollando a lo largo de distintas fases:
+
+	  FASE 1: Introducción de los Actores
+	  FASE 2: Descarga y sincronización de componentes
+	  FASE 3: El sistema final
+
+-FASE 3: El sistema final-
+
+-PARTE 1: Implementación-
+
+En la tercera fase el sistema se compondrá de un  cliente, tres  orchestrators,  una factoría de downloaders y una factoría de transfers. El cliente tendrá que mandar un URL en forma de string a uno de los orchestrators que, a su vez, redirigirá la petición a un downloader creado a tal efecto siempre que el fichero de audio no haya sido descargado previamente en el sistema. El downloader descargará el archivo y notificará que se ha descargado correctamente en un canal de eventos para que todos los orchestrators sepan que el fichero existe, mandando la información de ese fichero. Al terminar se destruirá.
+
+El cliente podrá solicitar la lista de ficheros descargados a uno de los orchestrators.
+
+Además, el cliente también tendrá la opción de pedir la transferencia de un archivo de audio. Harála petición a uno de los *orchestrators* que, a su vez, redirigirá la petición a un transfer creado a tal efecto siempre que el fichero de audio haya sido descargado previamente en el sistema. El transferle mandará directamente al cliente el archivo. Al terminar se destruirá.
+
+Los orchestrators se anunciarán al resto de orchestrators en su creación, que se anunciarán a su vez al nuevo orchestrator para actualizar las listas de orchestrators existentes de cada objeto. Además, un nuevo orchestrator ha de ser consciente de los ficheros de audio que ya han sido descargados en el sistema.
+
+Se puede observar el diagrama de secuencia de la fase 2 en la Figura 1.
+
 
 
