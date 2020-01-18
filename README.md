@@ -51,18 +51,18 @@ de ficheros a partir de URIs. El ejemplo típico será la descarga de clips de a
 implementación de este proyecto permitirá al alumno trabajar, mediante ZeroC Ice, los siguientes
 aspectos:
 	
-	*  Comunicación asíncrona
-	*  Manejo de canales de eventos
-	*  Despliegue de servidores de forma dinámica
-	*  Gestión de un grid
+	-  Comunicación asíncrona
+	-  Manejo de canales de eventos
+	-  Despliegue de servidores de forma dinámica
+	-  Gestión de un grid
 
 ## Arquitectura del proyecto
 
 El sistema está formado por cinco tipos de componentes: downloaders, encargados de la descargade ficheros;  orchestrators, para la gestión de los  downloaders;  transfers, empleados para latransferencia de archivos; clientes, que solicitarán ficheros; y canales de eventos para mantener unestado coherente entre componentes. Con el objetivo de facilitar el desarrollo de la práctica, laarquitectura descrita se irá desarrollando a lo largo de distintas fases:
 
-	*  FASE 1: Introducción de los Actores
-	*  FASE 2: Descarga y sincronización de componentes
-	*  FASE 3: El sistema final
+	-  FASE 1: Introducción de los Actores
+	-  FASE 2: Descarga y sincronización de componentes
+	-  FASE 3: El sistema final
 
 ### FASE 3: El sistema final
 
@@ -81,18 +81,18 @@ Los orchestrators se anunciarán al resto de orchestrators en su creación, que 
 El downloader es el componente encargado de la descarga de ficheros, y son creados bajo
 demanda mediante una factoría de objetos. En esta fase su funcionamiento consiste en:
 
-	* Es creado por una factoría de objetos para poder recibir nuevas peticiones de descarga.
-		* Downloader* create()
+	- Es creado por una factoría de objetos para poder recibir nuevas peticiones de descarga.
+		-> Downloader* create()
 		devolverá un objeto downloader ya añadido al adaptador de objetos.
-	* Recibe peticiones de descarga.
-		* string addDownloadTask(string url)
+	- Recibe peticiones de descarga.
+		-> string addDownloadTask(string url)
 		creará la tarea para que el downloader descargue el audio del vídeo por medio de la
 		librería youtube-dl.
-		* void newFile(FileInfo fileInfo)
+		-> void newFile(FileInfo fileInfo)
 		informará a los orchestrators de que hay un nuevo archivo en el sistema. Nombre del
 		topic: UpdateEvents
-	* Es destruido al finalizar la descarga.
-		* void destroy()
+	- Es destruido al finalizar la descarga.
+		-> void destroy()
 		eliminará al downloader del adaptador y terminará su ejecución.
 
 ##### Transfer
@@ -100,18 +100,18 @@ demanda mediante una factoría de objetos. En esta fase su funcionamiento consis
 El *transfer* es el componente encargado de la transferencia de ficheros, y son creados bajo
 demanda mediante una factoría de objetos. En esta fase su funcionamiento consiste en:
 
-	* Es creado por una factoría de objetos para poder recibir nuevas peticiones de transferencia.
-		* Transfer* create(string fileName)
+	- Es creado por una factoría de objetos para poder recibir nuevas peticiones de transferencia.
+		-> Transfer* create(string fileName)
 		devolverá un objeto transfer ya añadido al adaptador de objetos y con el archivo a
 		mandar abierto.
-	* Recibe peticiones de transferencia.
-		* string recv(int size)
+	- Recibe peticiones de transferencia.
+		-> string recv(int size)
 		creará la tarea para que el transfer transfiera el audio deforma similar a como se realiza
 		el envío de información por medio de sockets en python.
-	* Es destruido al finalizar la descarga.
-		* void close()
+	- Es destruido al finalizar la descarga.
+		-> void close()
 		cerrará el archivo que se haya transferido, propio del objeto transfer concreto.
-		* void destroy()
+		-> void destroy()
 		eliminará al transfer del adaptador y terminará su ejecución.
 
 ##### Orchestrator
@@ -120,28 +120,28 @@ El *orchestrator* es el componente del sistema que se encarga de la gestión de 
 haciendo de intermediario entre éstos y el cliente. Pueden existir uno o varios y su
 funcionamiento en esta fase consiste en:
 
-	* Está siempre a la espera de recibir nuevas peticiones por parte del cliente.
-	* Recibe peticiones de descarga que son asignadas a downloaders, después de haber solicitado
+	- Está siempre a la espera de recibir nuevas peticiones por parte del cliente.
+	- Recibe peticiones de descarga que son asignadas a downloaders, después de haber solicitado
 	su creación, mediante la función pertinente.
-		* *string downloadTask(string url)*
+		-> string downloadTask(string url)
 		creará una nueva tarea de descarga que enviará a un downloader si el fichero no existe
 		ya en el sistema.
-	* Recibe peticiones de transferencia que son asignadas a transfers, después de haber solicitado
+	- Recibe peticiones de transferencia que son asignadas a transfers, después de haber solicitado
 	su creación, mediante la función pertinente.
-		* *Transfer* getFile(string name)*
+		-> Transfer* getFile(string name)
 		creará una nueva tarea de transferencia que enviará a un transfer si el fichero existe en el
 		sistema.
-	* Mantiene listas actualizadas de los ficheros ya descargados en el sistema controlando los
+	- Mantiene listas actualizadas de los ficheros ya descargados en el sistema controlando los
 	eventos del canal de actualizaciones UpdateEvents.
-		* *FileList getFileList();*
+		-> FileList getFileList();
 		proporcionará la lista de ficheros disponibles (ya descargados e indexados) de todos los
  		downloaders del sistema.
-	* Cuando se arranca un nuevo orchestrator saluda al resto de orchestrators, que se anuncian
+	- Cuando se arranca un nuevo orchestrator saluda al resto de orchestrators, que se anuncian
 	al nuevo objeto.
-		* *void hello(Orchestrator* me);*
+		-> void hello(Orchestrator* me);
 		informará a los orchestrators que ya existen en el sistema de que es un nuevo
 		orchestrator. Nombre del topic: OrchestratorSync
-		* *void announce(Orchestrator* other);*
+		-> void announce(Orchestrator* other);
 		anunciará cada orchestrator al nuevo orchestrator en el sistema.
 
 ##### Cliente
@@ -165,11 +165,11 @@ La imaplementación será modificada para poder desplegarse con IcegridGUI como 
 llamada YoutubeDownloadsApp. El estado final de la configuración de la aplicación se muestra en
 la Figura 2. Consiste en:
 
-	* Nodo 1: aloja al registro, a un servidor de IcePatch2 y un servidor de IceStorm.
-	* Nodo 2: tres servidores orchestrator definidos por medio de una plantilla.
+	- Nodo 1: aloja al registro, a un servidor de IcePatch2 y un servidor de IceStorm.
+	- Nodo 2: tres servidores orchestrator definidos por medio de una plantilla.
 		▸ Estos servidores deberán pertenecer a un grupo de réplica alcanzable por medio del
 		identificador orchestrator.
-	* Nodo 3: dos factorías, una de downloaders y otra de transfers, obtenidas de plantillas.
+	- Nodo 3: dos factorías, una de downloaders y otra de transfers, obtenidas de plantillas.
 		▸ Los proxies indirectos de estas factorías serán conocidos por los orchestrators.
 
 
@@ -187,20 +187,20 @@ orchestrator-node en el Host 1 y downloads-node en el Host 2.
 
 El .zip entregado ha de contener:
 
-	* client.py: programa cliente.
-	* client.config: configuración del cliente.
-	* downloader_factory.py: factoría de objetos downloader.
-	* transfer_factory.py: factoría de objetos transfer.
-	* downloads-node.config: configuración del nodo de descargas.
-	* orchestrator.py: programa de los servidores orchestrator.
-	* orchestrator-node.config: configuración del nodo de los orchestrators.
-	* registry-node.config: configuración del registry y su nodo.
-	* trawlnet.ice: interfaz del sistema.
-	* YoutubeDownloaderApp.xml: archivo con la configuración de la aplicación en IcegridGUI.
-	* README.md: contendrá el enlace al repositorio, los nombres de los alumnos que componen el grupo y el manual de usuario con la especificación de cómo lanzar el sistema.
-	* run_client.sh: script para la ejecución del cliente.
-	* run_server.sh: script para la ejecución del lado del servidor.
-	* Makefile: reglas para la ejecución del sistema.
+	- client.py: programa cliente.
+	- client.config: configuración del cliente.
+	- downloader_factory.py: factoría de objetos downloader.
+	- transfer_factory.py: factoría de objetos transfer.
+	- downloads-node.config: configuración del nodo de descargas.
+	- orchestrator.py: programa de los servidores orchestrator.
+	- orchestrator-node.config: configuración del nodo de los orchestrators.
+	- registry-node.config: configuración del registry y su nodo.
+	- trawlnet.ice: interfaz del sistema.
+	- YoutubeDownloaderApp.xml: archivo con la configuración de la aplicación en IcegridGUI.
+	- README.md: contendrá el enlace al repositorio, los nombres de los alumnos que componen el grupo y el manual de usuario con la especificación de cómo lanzar el sistema.
+	- run_client.sh: script para la ejecución del cliente.
+	- run_server.sh: script para la ejecución del lado del servidor.
+	- Makefile: reglas para la ejecución del sistema.
 
 Los scripts de ejecución y el Makefile serán proporcionados por los profesores. Serán utilizados
 para la puesta en marcha del sistema, por lo que éste deberá ajustarse al despliegue que realizan
