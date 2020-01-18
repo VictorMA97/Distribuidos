@@ -84,6 +84,7 @@ Se puede observar el diagrama de secuencia de la fase 2 en la Figura 1.
 
 
 
+
 ##### Downloader
 
 El downloader es el componente encargado de la descarga de ficheros, y son creados bajo
