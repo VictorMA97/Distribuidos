@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-Downloader Implementacion
+Downloader 
 '''
 
 import sys
@@ -23,19 +23,19 @@ class NullLogger:
     '''
     def debug(self, msg):
         '''
-        debug method
+        debug metodo
         '''
         pass
 
     def warning(self, msg):
         '''
-        warning method
+        warning metodo
         '''
         pass
 
     def error(self, msg):
         '''
-        error method
+        error metodo
         '''
         pass
 
@@ -52,14 +52,14 @@ _YOUTUBEDL_OPTS_ = {
 
 def download_mp3(url, destination='./downloads/'):
     '''
-    Synchronous download from YouTube
+    Sincronizacion desde Youtube para la descarga
     '''
     options = {}
     task_status = {}
 
     def progress_hook(status):
         '''
-        progress hook
+        progreso hook
         '''
         task_status.update(status)
     options.update(_YOUTUBEDL_OPTS_)

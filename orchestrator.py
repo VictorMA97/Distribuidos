@@ -84,7 +84,7 @@ class InitOrchestrators():
     orchestrators_dict = {}
     files_update = {}
 
-    def __init__(self, broker, topic_update, topic_orchestrator):
+    def __init__(self, broker,  topic_update, topic_orchestrator):
         ''' Constructor '''
         self.adapter = broker.createObjectAdapter("OrchestratorAdapter")
         downloader_factory = TrawlNet.DownloaderFactoryPrx.checkedCast(broker.propertyToProxy("DownloaderFactoryIdentity"))

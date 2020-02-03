@@ -10,14 +10,88 @@ https://github.com/rosasacedon/SacedonMartin
 * *Victor Martin Alonso*
 
 ## Manual de Usuario
+
 Este manual de usuario pretende explicar la funcionalidad de los componentes de la práctica y su forma de ejecución.
+
+client.config: Archivo con la configuracion del cliente para poderlo ejecutar.
+
+client.py: Contiene el cliente y las llamadas para descargas los archivos mp3 o tranferir los existentes, que estas opciones se controlan mediante 
+los flags --downloader y --transfer.
+
+downloader_factory.py: Fabrica downloaders en funcion de las peticiones de descarga que haga el cliente.
+
+downloads-node.config: Archivo de configuracion del nodo downloads, que es el que gestiona las peticiones de descarga.
+
+Makefile: Este archivo contiene las instrucciones para desplegar los nodos del sistema mediante una llamada make run.
+
+orchestrator.py: Gestiona las peticiones del cliente.
+
+orchestrator-node.config: Archivo de configuracion del nodo orchestrator.
+
+registry-node.config: Archivo de configuracion del nodo registry.
+
+run_client.sh: Ejecutable para arrancar el cliente.
+
+run_server.sh: Ejecutable para arrancar los servidores.
+
+templates.xml: Plantilla del orchestrator.
+
+trawlnet.ice: Archivo ice con las estructuras basicas del sistema distribuido.
+
+utils.py: Archivo con funcionalidades sobre los canales de eventos.
+
+YoutubeDownloaderApp.xml: Archivo xml con la configuracion del icegrid, listo para cargarlo en el icegrid y desplegarlo.
+
 
 
 ### Pasos para ejecutar
 
-1- En una terminal ejecutar lo siguiente:
+* *CON MAKEFILE
+
+1- En una terminal ejecutamos 
 
     make run
+  
+  Esto ejecutará todos los nodos de la práctica
+  
+2- En otra terminal ejecutamos:
+
+    icegridgui
+    
+2.1- Creamos una nueva conexión
+ 
+2.2- Abrimos el archivo el archivo xml que contiene la aplicación.
+    File -> Open -> *YoutubeDownloaderApp.xml*
+    
+2.3- Guardamos al registro con el botón (save to a registry)
+
+2.4- Distribuimos la aplicación en el Live Deployment
+    Tools -> Path distribution -> Apply path distribution
+
+2.5- Ejecutamos los servidores con cierto orden.
+    1) IceStorm
+    2) Transfer / Downloader
+    3) Orchestrators
+    
+3- Ejecutar el cliente con los tres makes que se muestran a continuación: 
+
+3.1- Para la descarga 
+	
+	make run-client-download url="<url>"
+	
+3.1- Para la lista
+
+	make run-client-list
+	
+3.3- Para transferir
+
+	make run-client-transfer nombre="<name.mp3>"
+
+* *CON LOS ARCHIVOS .SH
+
+1- En una terminal ejecutar lo siguiente:
+
+    run_server.sh
 
 Esto ejecutará todos los nodos de la práctica.
 
@@ -42,7 +116,7 @@ Esto ejecutará todos los nodos de la práctica.
     
 3- Ejecutar el cliente
 
-    ./run_client.sh
+    ./run_client.sh <url> <nombre_fichero>
     
 ## Descripción de la práctica
 
